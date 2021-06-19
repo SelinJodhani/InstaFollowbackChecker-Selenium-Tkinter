@@ -20,7 +20,7 @@ class InstaBot(tk.Tk):
         self.geometry("444x344")
         self.maxsize(444, 444)
         self.minsize(444, 444)
-        self.wm_iconbitmap("3721672-instagram_108066.ico")
+        self.wm_iconbitmap("icon/3721672-instagram_108066.ico")
         self.title("Instagram Followback Checker")
         self.configure(background="grey20")
         self.widgets()
@@ -90,7 +90,6 @@ class InstaBot(tk.Tk):
 
         self.get_unfollowers()
 
-
     def login(self, username, password):
 
         if not self.varRadio.get():
@@ -116,12 +115,14 @@ class InstaBot(tk.Tk):
             self.driver.find_element_by_xpath('//button[@type = "submit"]').click()
             time.sleep(5)
 
-            if self.driver.find_element_by_id('slfErrorAlert'):
-                self.errorValue.set("Your email/password was incorrect.")
-                self.driver.find_element_by_xpath('//input[@name = "username"]').send_keys(Keys.CONTROL + u'\ue003')
-                self.driver.find_element_by_xpath('//input[@name = "password"]').send_keys(Keys.CONTROL + u'\ue003')
-            else:
-                self.errorValue.set("")
+            try:
+                if self.driver.find_element_by_id('slfErrorAlert'):
+                    self.errorValue.set("Your email/password was incorrect.")
+                    self.driver.find_element_by_xpath('//input[@name = "username"]').send_keys(Keys.CONTROL + u'\ue003')
+                    self.driver.find_element_by_xpath('//input[@name = "password"]').send_keys(Keys.CONTROL + u'\ue003')
+            except:
+
+                self.errorValue.set(" ")
 
                 self.selectBrowser1.destroy()
                 self.selectBrowser2.destroy()
